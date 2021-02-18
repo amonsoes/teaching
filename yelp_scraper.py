@@ -27,26 +27,6 @@ def extract_results(soup):
 
 if __name__ == '__main__':
     
-    # build a parser object
-
-    parser = argparse.ArgumentParser()
-
-    # add your arguments. "--" makes them optional, without them they are positional
-    # type specifies how the program should interpret the input (as string, int, bool, float)
-    # if type=str, python will call the str() method on whatever input you passed in
-    # 'help' expects a string, which will be displayed if the user wants help in CLI
-
-    parser.add_argument('--loc', type=str, help='set the location you want to query')
-    parser.add_argument('--typ', type=str, help='set which kinds of businessess you want to query')
-
-    # parse the args. all arguments will be available through this arg object
-
-    args = parser.parse_args() # '' is only needed in jupyter notebooks
-
-    # now you can use the input passed trough the args in the CLI like that:
-    # args.loc
-    # args.typ
-    
     def main(loc, typ):
         params = {
             'find_loc' : loc,
@@ -58,7 +38,5 @@ if __name__ == '__main__':
         soup = bs4.BeautifulSoup(req.text, 'html.parser')
 
         extract_results(soup)
-    
-    main(args.loc, args.typ)
     
     
