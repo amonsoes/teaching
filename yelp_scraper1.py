@@ -2,9 +2,6 @@ import bs4
 import requests
 import argparse
 
-'''
-Start script with: python3 yelp_scraper.py --loc=Vienna --typ=Restaurants
-'''
 
 def perform_request(url, params):
     req = requests.get(url, params=params)
@@ -46,19 +43,16 @@ if __name__ == '__main__':
     # now you can use the input passed trough the args in the CLI like that:
     # args.loc
     # args.typ
-    
-    def main(loc, typ):
-        params = {
-            'find_loc' : loc,
-            'find_desc' : typ
-            }
-        url = 'https://www.yelp.de/search'
-        req = perform_request(url, params)
+        
+    params = {
+        'find_loc' : args.loc,
+        'find_desc' : args.typ
+        }
+    url = 'https://www.yelp.de/search'
+    req = perform_request(url, params)
 
-        soup = bs4.BeautifulSoup(req.text, 'html.parser')
+    soup = bs4.BeautifulSoup(req.text, 'html.parser')
 
-        extract_results(soup)
-    
-    main(args.loc, args.typ)
+    extract_results(soup)
     
     

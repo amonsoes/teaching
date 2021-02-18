@@ -1,0 +1,25 @@
+While current state-of-the-art NER approaches perform well on noiseless domains, like news data, noisy environments like social media data pose a problem. Combining a well pretrained language model like current BERT variants with a prediction head for NER seems to lack the specific representation for noisy and error-prone data, since language models are usually trained on a very large but also very general text corpus.
+
+model:
+
+Our NER model tries to address that issue by performing fine-tuning on a BERT model with a noisy social media corpus. The model is implemented in FARM using the pretrained LM 'BERT Large uncased' with whole word masking and a fully connected prediction head for NER.
+
+data:
+
+For that we needed data in the format which is usually used for NER training - the IBO notation.
+Finding data for NER is easy, finding noisy social media data for NER not so much. We looked at the CoNLL 2003 but came to the conclusion that it was not fitting for our noisy NER model. After a lot of research, we concluded that the optimal data set was 'Broad Twitter Corpus'. (Broad Twitter Corpus: A Diverse Named Entity Recognition Resource. Leon Derczynski, Kalina Bontcheva, and Ian Roberts. Proceedings of COLING, pages 1169-1179 2016.)
+
+
+training:
+
+While the model showed promising results in inference, we observed that during fine-tuning there is only a marginal improvement of accuracy and F1 between the first and all following epochs. This might be due to the fact that our training data was severely limited and not enough to fine-tune the weights of the language model.
+
+
+performance:
+
+While out-of-the-box LM's like the one in the Spacy framework performed great on news data, they failed when confronted with noisy data, like twitter data. Being trained on twitter data, our model shows promising results on tweets, achieving an F1 score of 79% on the development data.
+
+
+outlook:
+
+There is still a lot of room for improvement. A promising new language model LUKE was released in late 2020, which outperformed all other existing language model in NER. Replacing that model with our current BERT could result in a performance gain, as well as using a broader data set.
